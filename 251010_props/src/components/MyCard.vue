@@ -18,4 +18,8 @@ const props = defineProps({
 const emit = defineEmits(["clicked", "cancel", "submit"]);
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+button{
+  background-color: aqua;
+}
+</style>
