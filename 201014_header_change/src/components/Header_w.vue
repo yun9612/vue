@@ -2,18 +2,30 @@
   <div>
     <header :class="[{ scrolled: isScrolled }, { dark: isDark }]">
       <div class="inner">
-        <img src="/images/link.png" alt="로고" class="logo" @click="goHome" />
-        <div class="hamburger">
+        <!-- <img src="/images/link.png" alt="로고" class="logo" @click="goHome" /> -->
+        <img :src="currentLogo" alt="로고" class="logo" @click="goHome" />
+        <div class="hamburger" @click="toggleSubMenu">
           <div class="line" v-for="n in 3" :key="n"></div>
         </div>
       </div>
+      <!-- 서브메뉴 -->
+      <Submenu v-if="isSubMenuOpen" @close="isSubMenuOpen = false" />
     </header>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed, onMounted, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import Submenu from "./Submenu.vue";
+
+// 서브메뉴 상태 저장
+const isSubMenuOpen = ref(false);
+// 햄버거 클릭 시 서브메뉴 나오기
+const toggleSubMenu = () => {
+  isSubMenuOpen.value = !isSubMenuOpen.value;
+};
+
 // 스크롤 상태 저장
 const isScrolled = ref(false);
 // 스크롤하면 색 변경
@@ -27,6 +39,7 @@ onMounted(() => {
 
 // 로고 클릭 시 홈으로 이동
 const router = useRouter();
+const route = useRoute();
 const goHome = () => {
   router.push("/");
 };
@@ -34,6 +47,24 @@ const goHome = () => {
 // 부모(App.vue)에서 받은 값
 const props = defineProps({
   isDark: Boolean,
+  logoSrc: {
+    type: String,
+    default: "/images/link.png",
+  },
+});
+
+// 현재 표시할 로고 이미지 계산
+const currentLogo = computed(() => {
+  // 스크롤 상태를 우선
+  if (isScrolled.value) {
+    return "/images/favicon_192.png";
+  }
+  // 페이지가 변경 될때
+  if (["Reser", "Review", "Contact"].includes(route.name)) {
+    return "/images/favicon_192.png";
+  }
+  // 기본 로고
+  return props.logoSrc;
 });
 </script>
 
@@ -55,9 +86,9 @@ header {
     .line {
       background-color: #fff !important;
     }
-    img {
-      filter: brightness(0) invert(1);
-    }
+    // img {
+    //   filter: brightness(0) invert(1);
+    // }
   }
 
   // isDark
@@ -67,9 +98,9 @@ header {
     .line {
       background-color: #fff !important;
     }
-    img {
-      filter: brightness(0) invert(1);
-    }
+    // img {
+    //   filter: brightness(0) invert(1);
+    // }
   }
 
   .inner {
@@ -80,8 +111,10 @@ header {
     align-items: center;
     .logo {
       cursor: pointer;
+      width: 50px;
     }
     .hamburger {
+      cursor: pointer;
       .line {
         width: 25px;
         height: 3px;

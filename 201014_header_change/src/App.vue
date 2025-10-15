@@ -15,7 +15,7 @@ import { useRoute } from "vue-router";
 import Header_w from "./components/Header_w.vue";
 import QuickTop from "./components/QuickTop.vue";
 
-const isDarkHeader = computed(() => ["Reser", "Review"].includes(route.name));
+const isDarkHeader = computed(() => ["Reser", "Review", "Contact"].includes(route.name));
 const route = useRoute();
 </script>
 
