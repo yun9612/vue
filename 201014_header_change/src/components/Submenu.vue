@@ -6,6 +6,7 @@
         <li @click="goPage('/')">🏠 홈</li>
         <li @click="goPage('/reser')">📅 예약하기</li>
         <li @click="goPage('/review')">📝 리뷰보기</li>
+        <li @click="goPage('/faq')">❓ FAQ</li>
         <li @click="goPage('/contact')">📞 문의하기</li>
       </ul>
     </div>

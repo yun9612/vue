@@ -3,6 +3,7 @@
     <h1>🏠홈</h1>
     <router-link to="/reser" class="btn">예약하기</router-link>
     <router-link to="/review" class="btn">리뷰보기</router-link>
+    <router-link to="/faq" class="btn">FAQ</router-link>
     <!-- 상품 목록 -->
     <div class="product_wrap">
       <h2>상품 목록</h2>
