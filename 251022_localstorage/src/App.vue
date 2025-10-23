@@ -1,11 +1,12 @@
 <template>
   <div>
-    <Local_ex01 />
+    <Header_w />
+    <router-view></router-view>
   </div>
 </template>
 
 <script setup>
-import Local_ex01 from "./components/Local_ex01.vue";
+import Header_w from "./components/Header_w.vue";
 </script>
 
 <style scoped lang="scss"></style>
